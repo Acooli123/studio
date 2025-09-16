@@ -47,10 +47,10 @@ export default function AllTicketsPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Ticket</TableHead>
-              <TableHead>User</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Priority</TableHead>
-              <TableHead className="text-right">Last Updated</TableHead>
+              <TableHead className="hidden md:table-cell">User</TableHead>
+              <TableHead className="hidden sm:table-cell">Status</TableHead>
+              <TableHead className="hidden sm:table-cell">Priority</TableHead>
+              <TableHead className="text-right hidden md:table-cell">Last Updated</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -60,9 +60,12 @@ export default function AllTicketsPage() {
                   <Link href={`/dashboard/tickets/${ticket.id}`} className="font-medium hover:underline">
                     {ticket.id}
                   </Link>
-                  <div className="text-sm text-muted-foreground truncate max-w-xs">{ticket.title}</div>
+                  <div className="text-sm text-muted-foreground truncate max-w-[200px] sm:max-w-xs">{ticket.title}</div>
+                   <div className="text-sm text-muted-foreground md:hidden mt-2">
+                      {ticket.user.name}
+                    </div>
                 </TableCell>
-                <TableCell>
+                <TableCell className="hidden md:table-cell">
                   <div className="flex items-center gap-2">
                      <Avatar className="h-8 w-8">
                        <Image src={ticket.user.avatar} alt={ticket.user.name} data-ai-hint="person face" width={32} height={32} />
@@ -74,7 +77,7 @@ export default function AllTicketsPage() {
                      </div>
                   </div>
                 </TableCell>
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   <Badge variant={
                     ticket.status === 'Open' ? 'destructive' :
                     ticket.status === 'In Progress' ? 'secondary' : 'default'
@@ -82,10 +85,10 @@ export default function AllTicketsPage() {
                     {ticket.status}
                   </Badge>
                 </TableCell>
-                <TableCell>
+                <TableCell className="hidden sm:table-cell">
                   <Badge variant="outline" className="capitalize">{ticket.priority}</Badge>
                 </TableCell>
-                <TableCell className="text-right">{ticket.updatedAt}</TableCell>
+                <TableCell className="text-right hidden md:table-cell">{ticket.updatedAt}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -47,7 +47,7 @@ export default function AdminPage() {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="categories" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3">
             <TabsTrigger value="categories">Categories</TabsTrigger>
             <TabsTrigger value="slas">SLAs</TabsTrigger>
             <TabsTrigger value="routing">Routing Rules</TabsTrigger>

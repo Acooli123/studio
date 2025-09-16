@@ -55,7 +55,7 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
                 </div>
                 <CardTitle className="mt-4 text-2xl lg:text-3xl">{formattedTicket.title}</CardTitle>
               </div>
-              <div className="text-left sm:text-right">
+              <div className="text-left sm:text-right pt-2 sm:pt-0">
                   <p className="text-sm font-medium">Requester</p>
                   <div className="flex items-center gap-2 mt-1">
                      <Avatar className="h-8 w-8">

@@ -43,7 +43,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Open Tickets</CardTitle>
@@ -96,10 +96,10 @@ export default function Dashboard() {
             <TableHeader>
               <TableRow>
                 <TableHead>Ticket</TableHead>
-                <TableHead>User</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Priority</TableHead>
-                <TableHead className="text-right">Last Updated</TableHead>
+                <TableHead className="hidden md:table-cell">User</TableHead>
+                <TableHead className="hidden sm:table-cell">Status</TableHead>
+                <TableHead className="hidden sm:table-cell">Priority</TableHead>
+                <TableHead className="text-right hidden md:table-cell">Last Updated</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -109,9 +109,12 @@ export default function Dashboard() {
                     <Link href={`/dashboard/tickets/${ticket.id}`} className="font-medium hover:underline">
                       {ticket.id}
                     </Link>
-                    <div className="text-sm text-muted-foreground truncate max-w-xs">{ticket.title}</div>
+                    <div className="text-sm text-muted-foreground truncate max-w-[200px] sm:max-w-xs">{ticket.title}</div>
+                    <div className="text-sm text-muted-foreground md:hidden mt-2">
+                      {ticket.user.name}
+                    </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden md:table-cell">
                     <div className="flex items-center gap-2">
                        <Avatar className="h-8 w-8">
                          <Image src={ticket.user.avatar} alt={ticket.user.name} data-ai-hint="person face" width={32} height={32} />
@@ -123,7 +126,7 @@ export default function Dashboard() {
                        </div>
                     </div>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden sm:table-cell">
                     <Badge variant={
                       ticket.status === 'Open' ? 'destructive' :
                       ticket.status === 'In Progress' ? 'secondary' : 'default'
@@ -131,10 +134,10 @@ export default function Dashboard() {
                       {ticket.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="hidden sm:table-cell">
                     <Badge variant="outline" className="capitalize">{ticket.priority}</Badge>
                   </TableCell>
-                  <TableCell className="text-right">{ticket.updatedAt}</TableCell>
+                  <TableCell className="text-right hidden md:table-cell">{ticket.updatedAt}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
