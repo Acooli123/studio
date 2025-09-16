@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Card,
   CardContent,
@@ -22,8 +24,19 @@ import {
 import { ticketCategories } from "@/lib/data"
 import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export default function AdminPage() {
+  const [ticketCounts, setTicketCounts] = useState<Record<string, number>>({})
+
+  useEffect(() => {
+    const counts: Record<string, number> = {}
+    ticketCategories.forEach(category => {
+      counts[category] = Math.floor(Math.random() * 50) + 1
+    })
+    setTicketCounts(counts)
+  }, [])
+
   return (
     <Card>
       <CardHeader>
@@ -64,7 +77,7 @@ export default function AdminPage() {
                     {ticketCategories.map((category) => (
                       <TableRow key={category}>
                         <TableCell className="font-medium">{category}</TableCell>
-                        <TableCell>{Math.floor(Math.random() * 50) + 1}</TableCell>
+                        <TableCell>{ticketCounts[category] || 0}</TableCell>
                         <TableCell className="text-right">
                           <Button variant="ghost" size="sm">Edit</Button>
                           <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">Delete</Button>
