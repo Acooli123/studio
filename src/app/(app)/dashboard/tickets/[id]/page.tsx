@@ -38,13 +38,13 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
   const aiTicketDetails = `Title: ${formattedTicket.title}\nCategory: ${formattedTicket.category}\nDescription: ${formattedTicket.description}`;
 
   return (
-    <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
-      <div className="md:col-span-2 lg:col-span-3 space-y-8">
+    <div className="grid lg:grid-cols-4 gap-8">
+      <div className="lg:col-span-3 space-y-8">
         <Card>
           <CardHeader>
-            <div className="flex justify-between items-start">
+            <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
               <div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                     <Badge variant="outline">{formattedTicket.id}</Badge>
                     <Badge variant={
                       formattedTicket.status === 'Open' ? 'destructive' :
@@ -55,7 +55,7 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
                 </div>
                 <CardTitle className="mt-4 text-2xl lg:text-3xl">{formattedTicket.title}</CardTitle>
               </div>
-              <div className="text-right">
+              <div className="text-left sm:text-right">
                   <p className="text-sm font-medium">Requester</p>
                   <div className="flex items-center gap-2 mt-1">
                      <Avatar className="h-8 w-8">
@@ -76,7 +76,7 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
             <p className="text-muted-foreground whitespace-pre-wrap">{formattedTicket.description}</p>
           </CardContent>
           <Separator />
-          <CardContent className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+          <CardContent className="pt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
             <div className="flex items-center gap-2">
                 <Tag className="w-4 h-4 text-muted-foreground" />
                 <div>
@@ -120,7 +120,7 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
                         <AvatarFallback>A</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 space-y-2">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center flex-wrap gap-2">
                             <p className="font-semibold">{formattedTicket.agent?.name || formattedTicket.user.name}</p>
                             <p className="text-xs text-muted-foreground">{formattedTicket.updatedAt}</p>
                         </div>
@@ -135,7 +135,7 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
                         <AvatarFallback>U</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 space-y-2">
-                         <div className="flex justify-between items-center">
+                         <div className="flex justify-between items-center flex-wrap gap-2">
                             <p className="font-semibold">{formattedTicket.user.name}</p>
                             <p className="text-xs text-muted-foreground">{formattedTicket.createdAt}</p>
                         </div>
@@ -148,7 +148,7 @@ export default function TicketDetailsPage({ params }: { params: { id: string } }
         </Card>
       </div>
 
-      <div className="md:col-span-1 lg:col-span-1 space-y-8">
+      <div className="lg:col-span-1 space-y-8">
         <AiSuggestions ticketDetails={aiTicketDetails} />
 
         <Card>

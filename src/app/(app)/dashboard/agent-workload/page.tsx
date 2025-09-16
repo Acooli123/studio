@@ -15,7 +15,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import { agentPerformance } from "@/lib/data"
-import { Check, Clock, Percent, ThumbsDown } from "lucide-react"
+import { Check, Clock, Percent } from "lucide-react"
 
 const chartConfig = {
   created: {
@@ -32,7 +32,7 @@ export default function AgentDashboard() {
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-semibold">Agent Workload Dashboard</h1>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Tickets Resolved</CardTitle>
@@ -81,7 +81,7 @@ export default function AgentDashboard() {
           <CardDescription>Created vs. Resolved tickets over the last 6 months.</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={chartConfig} className="h-[300px] w-full">
+          <ChartContainer config={chartConfig} className="h-[250px] sm:h-[300px] w-full">
             <BarChart accessibilityLayer data={agentPerformance.monthlyTrend}>
               <CartesianGrid vertical={false} />
               <XAxis
@@ -89,8 +89,16 @@ export default function AgentDashboard() {
                 tickLine={false}
                 tickMargin={10}
                 axisLine={false}
+                stroke="#888888"
+                fontSize={12}
               />
-              <YAxis />
+              <YAxis
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+                tickFormatter={(value) => `${value}`}
+              />
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="dot" />}

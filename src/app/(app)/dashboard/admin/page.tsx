@@ -47,19 +47,19 @@ export default function AdminPage() {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="categories" className="w-full">
-          <TabsList>
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="categories">Categories</TabsTrigger>
             <TabsTrigger value="slas">SLAs</TabsTrigger>
             <TabsTrigger value="routing">Routing Rules</TabsTrigger>
           </TabsList>
           <TabsContent value="categories" className="mt-4">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between">
+              <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                   <CardTitle>Ticket Categories</CardTitle>
                   <CardDescription>Manage the categories available for tickets.</CardDescription>
                 </div>
-                <Button size="sm" className="gap-1">
+                <Button size="sm" className="gap-1 w-full sm:w-auto">
                   <PlusCircle className="h-4 w-4" />
                   Add Category
                 </Button>
@@ -69,7 +69,7 @@ export default function AdminPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Name</TableHead>
-                      <TableHead>Tickets</TableHead>
+                      <TableHead className="hidden sm:table-cell">Tickets</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -77,7 +77,7 @@ export default function AdminPage() {
                     {ticketCategories.map((category) => (
                       <TableRow key={category}>
                         <TableCell className="font-medium">{category}</TableCell>
-                        <TableCell>{ticketCounts[category] || 0}</TableCell>
+                        <TableCell className="hidden sm:table-cell">{ticketCounts[category] || 0}</TableCell>
                         <TableCell className="text-right">
                           <Button variant="ghost" size="sm">Edit</Button>
                           <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive">Delete</Button>
