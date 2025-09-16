@@ -1,3 +1,6 @@
+
+"use client";
+
 import {
   Card,
   CardContent,
@@ -20,13 +23,23 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useEffect, useState } from "react"
 
 export default function Dashboard() {
+  const [formattedTickets, setFormattedTickets] = useState(tickets);
+
+  useEffect(() => {
+    setFormattedTickets(tickets.map(ticket => ({
+      ...ticket,
+      updatedAt: new Date(ticket.updatedAt).toLocaleDateString(),
+    })));
+  }, []);
+
   const openTickets = tickets.filter(t => t.status === "Open").length
   const inProgressTickets = tickets.filter(t => t.status === "In Progress").length
   const resolvedTickets = tickets.filter(t => t.status === "Resolved").length
   
-  const recentTickets = tickets.slice(0, 5)
+  const recentTickets = formattedTickets.slice(0, 5)
 
   return (
     <div className="flex flex-col gap-8">
@@ -121,7 +134,7 @@ export default function Dashboard() {
                   <TableCell>
                     <Badge variant="outline" className="capitalize">{ticket.priority}</Badge>
                   </TableCell>
-                  <TableCell className="text-right">{new Date(ticket.updatedAt).toLocaleDateString()}</TableCell>
+                  <TableCell className="text-right">{ticket.updatedAt}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

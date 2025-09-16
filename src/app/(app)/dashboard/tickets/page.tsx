@@ -1,4 +1,7 @@
 
+
+"use client";
+
 import {
   Card,
   CardContent,
@@ -19,8 +22,18 @@ import { tickets } from "@/lib/data"
 import Link from "next/link"
 import Image from "next/image"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { useEffect, useState } from "react"
 
 export default function AllTicketsPage() {
+  const [formattedTickets, setFormattedTickets] = useState(tickets);
+
+  useEffect(() => {
+    setFormattedTickets(tickets.map(ticket => ({
+      ...ticket,
+      updatedAt: new Date(ticket.updatedAt).toLocaleDateString(),
+    })));
+  }, []);
+
   return (
     <Card>
       <CardHeader>
@@ -41,7 +54,7 @@ export default function AllTicketsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {tickets.map((ticket) => (
+            {formattedTickets.map((ticket) => (
               <TableRow key={ticket.id}>
                 <TableCell>
                   <Link href={`/dashboard/tickets/${ticket.id}`} className="font-medium hover:underline">
@@ -72,7 +85,7 @@ export default function AllTicketsPage() {
                 <TableCell>
                   <Badge variant="outline" className="capitalize">{ticket.priority}</Badge>
                 </TableCell>
-                <TableCell className="text-right">{new Date(ticket.updatedAt).toLocaleDateString()}</TableCell>
+                <TableCell className="text-right">{ticket.updatedAt}</TableCell>
               </TableRow>
             ))}
           </TableBody>
